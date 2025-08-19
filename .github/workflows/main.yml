@@ -1,0 +1,32 @@
+name: Deploy Website
+
+on:
+  push:
+    branches:
+      - main   # Runs whenever you push to the main branch
+
+permissions:
+  contents: write   # Needed to push to gh-pages
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout repo
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Setup Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      # Step 3: Upload artifact (your site files)
+      - name: Upload site files
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .   # Upload everything in root (index.html, css, etc.)
+
+      # Step 4: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
